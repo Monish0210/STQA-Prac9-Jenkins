@@ -10,19 +10,20 @@ pipeline {
 
         stage('Check Python') {
             steps {
-                bat '"C:\\Users\\Prapti Patel\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" --version'
+                bat 'python --version'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                bat '"C:\\Users\\Prapti Patel\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" -m pip install -r requirements.txt'
+                bat 'python -m pip install -r requirements.txt'
             }
         }
 
         stage('Run Automated Tests') {
             steps {
-                bat '"C:\\Users\\Prapti Patel\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" -m pytest --junitxml=reports\\test-results.xml'
+                bat 'if not exist reports mkdir reports'
+                bat 'python -m pytest --junitxml=reports\\test-results.xml'
             }
         }
     }
